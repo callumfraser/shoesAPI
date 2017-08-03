@@ -1,0 +1,27 @@
+{
+  "name": "shoes_api",
+  "version": "1.0.0",
+  "description": "shoes API",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/callumfraser/shoesAPI.git"
+  },
+  "author": "callumF",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/callumfraser/shoesAPI/issues"
+  },
+  "homepage": "https://github.com/callumfraser/shoesAPI#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.4",
+    "handlebars": "^4.0.10",
+    "mongoose": "^4.11.4"
+  }
+}
