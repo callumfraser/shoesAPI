@@ -1,0 +1,40 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="/../css/style.css" />
+</head>
+
+<body>
+  <form action="" method="post">
+  <div class="headerTabs">
+    <input type="submit" name="shoes" value="Shoes"class="headerButtons">
+    <input type="submit" name="shoes" value="About"class="headerButtons">
+    <input type="submit" name="shoes" value="Contact"class="headerButtons">
+  </div><br><br>
+  Available catalogue: <br><br>
+    <table>
+        <tr>
+            <th>Brand</th>
+            <th>Color</th>
+            <th>Price</th>
+            <th>Sizes available</th>
+        </tr>
+        {{#each shoesResult}}
+        <tr>
+         <td>{{brand}}</td>
+         <td>{{color}}</td>
+         <td>{{price}}</td>
+         <td>{{sizeCheck sizes}}</td>
+        </tr>
+        {{/each}}
+    </table>
+    <br><br>
+      <div class="">
+        Add new stock:<br>
+        <input type="text" name="newBrand"placeholder="Brand name">
+        <input type="text" name="newColor"placeholder="Color">
+        <input type="text" name="newPrice"placeholder="Price">
+        <input type="text" name="newSizes"placeholder="Sizes Available"><br><br>
+        <input type="submit" name="addNewStock" value="Add stock">
+      </div>
+
+    </form>
+</body>
