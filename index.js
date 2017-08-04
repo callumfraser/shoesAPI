@@ -30,17 +30,12 @@ app.engine('handlebars', express_handlebars({
 }));
 app.set('view engine', 'handlebars');
 
-Handlebars.registerHelper('sizeCheck', function(array){
-  // console.log(array)
-  var sizesAvailable = [];
-  array.forEach(function(size){
-    // console.log(size)
-    if (size !== '0' && size !== undefined){
-      console.log(array.indexOf(size))
-      sizesAvailable.push(array.indexOf(size))
-    }
-  })
-  return sizesAvailable;
+Handlebars.registerHelper('sizeCheck', function(size){
+if (size.amount== 0 || undefined){
+  return null
+} else {
+  return size.size + '   ';
+}
 })
 
 app.get('/', function(req, res) {
@@ -54,14 +49,21 @@ app.get('/api/shoes', function(req, res) {
         if (err) {
             console.log(err)
         } else if (results) {
-            console.log(results)
+            // console.log(results)
             results.forEach(function(stock){
           shoesResult.push(stock);
-          console.log(shoesResult)
         })
         }
+        shoesResult.forEach(function(stock){
+          // var sizesAvailable = [];
+          for (var i=0;i++;i<stock.sizes.length){
+            if (stock.sizes[i] !== 0){
+              sizesAvailable.push(i)
+            }
+          }
+        })
         res.render('shoes', {
-          shoesResult : shoesResult
+          shoesResult : shoesResult,
         })
 
     })
@@ -74,19 +76,28 @@ app.post('/api/shoes', function(req,res){
   var newPrice = req.body.newPrice;
   var newSizes = req.body.newSizes;
   var newSizesArray = newSizes.split(',');
+  var objArraySizes = [];
+  console.log(newSizesArray.length);
+  for (var p=0;p<newSizesArray.length;p++){
+    objArraySizes.push({
+      size: p,
+      amount: Number(newSizesArray[p])
+    })
+  }
 
   var newStock = new StockDB();
   if (addNewStock){
     newStock.color = newColor.substr(0,1).toUpperCase() + newColor.substr(1,(newColor.length-1)).toLowerCase();
     newStock.brand = newBrand.substr(0,1).toUpperCase() + newBrand.substr(1,(newBrand.length-1)).toLowerCase();
     newStock.price = Number(newPrice);
-    newStock.sizes = newSizesArray;
-    newStock.save(function(err,savedUser){
+    newStock.sizes = objArraySizes;
+    newStock.save(function(err,savedShoe){
       if (err){
         console.log(err)
       }
       else {
         console.log("shoe saved");
+        console.log(savedShoe);
         res.redirect('/api/shoes')
         return
       }
