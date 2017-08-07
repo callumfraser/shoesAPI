@@ -11,21 +11,26 @@
         </div><br><br> Available catalogue: <br><br>
         <table>
             <tr>
+                <th></th>
                 <th>Brand</th>
                 <th>Color</th>
                 <th>Price</th>
-                <th>Sizes available</th>
+                <th>Size</th>
             </tr>
             {{#each shoesResult}}
                 <tr>
+                    <td><input type="checkbox" name="chosenShoes" value="{{_id}}"></td>
                     <td>{{brand}}</td>
                     <td>{{color}}</td>
                     <td>R{{price}}</td>
                     <td>
-                        {{#each sizes}}
-                            {{sizeCheck this}}
-                        {{/each}}
-                    </td>
+                    <select class="" name="sizes">
+                      <option selected value="none" hidden>Select</option>
+                      {{#each sizes}}
+                      <option value="{{size}}"{{sizeCheck this}}>{{size}}</option>
+                      {{/each}}
+                    </select>
+                  </td>
                 </tr>
             {{/each}}
         </table>
@@ -36,7 +41,8 @@
             <input type="text" name="newColor" placeholder="Color">
             <input type="text" name="newPrice" placeholder="Price">
             <input type="text" name="newSizes" placeholder="Sizes Available"><br><br>
-            <input type="submit" name="addNewStock" value="Add stock">
+            <input type="submit" name="addNewStock" value="Add stock"><br><br>
+            <input type="submit" name="orderStock" value="Place my order">
         </div>
 
     </form>
