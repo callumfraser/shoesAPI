@@ -32,16 +32,16 @@ app.engine('handlebars', express_handlebars({
 }));
 app.set('view engine', 'handlebars');
 
-function capitalise(string){
-return string.substr(0,1).toUpperCase() + string.substr(1,(string.length-1)).toLowerCase()
+function capitalise(string) {
+    return string.substr(0, 1).toUpperCase() + string.substr(1, (string.length - 1)).toLowerCase()
 }
 
-Handlebars.registerHelper('sizeCheck', function(size){
-if (size.amount== 0 || undefined){
-  return 'disabled'
-} else {
-  return null;
-}
+Handlebars.registerHelper('sizeCheck', function(size) {
+    if (size.amount == 0 || undefined) {
+        return 'disabled'
+    } else {
+        return null;
+    }
 })
 
 app.get('/', function(req, res) {
@@ -49,49 +49,71 @@ app.get('/', function(req, res) {
 })
 
 app.get('/api/shoes', function(req, res) {
-searchAll(StockDB, res, "");
+    searchAll(StockDB, res, "");
 })
 
-app.post('/api/shoes/sold/:id', function(req,res){
-  var orderStock = req.body.orderStock;
-  var chosenShoes = req.body.chosenShoes;
-  // var
-  if (orderStock){
-    console.log(chosenShoes);
+app.post('/api/shoes/', function(req, res) {
+    var orderStock = req.body.orderStock;
+    var chosenShoes = req.body.chosenShoes;
+    if (chosenShoes.constructor!==Array){
+      chosenShoes = [chosenShoes]
+    }
+    if (orderStock) {
+        console.log(chosenShoes);
+        res.redirect('/')
 
-  }
+    }
 
 })
 
-app.post('/api/shoes', function(req,res){
-  var addNewStock = req.body.addNewStock;
-  var newBrand = capitalise(req.body.newBrand);
-  var newColor = capitalise(req.body.newColor);
-  var newPrice = req.body.newPrice;
-  var newSizes = req.body.newSizes;
-  var newSizesArray = newSizes.split(',');
-  var objArraySizes = [];
-  console.log(newSizesArray.length);
-  for (var p=0;p<newSizesArray.length;p++){
-    objArraySizes.push({
-      size: p,
-      amount: Number(newSizesArray[p])
-    })
-  }
+app.post('/api/shoes', function(req, res) {
+    var addNewStock = req.body.addNewStock;
+    var newBrand = capitalise(req.body.newBrand);
+    var newColor = capitalise(req.body.newColor);
+    var newPrice = req.body.newPrice;
+    var newSizes = req.body.newSizes;
+    var newSizesArray = newSizes.split(',');
+    var objArraySizes = [];
+    console.log(newSizesArray.length);
+    for (var p = 0; p < newSizesArray.length; p++) {
+        objArraySizes.push({
+            size: p,
+            amount: Number(newSizesArray[p])
+        })
+    }
 
-  var newStock = new StockDB();
-  if (addNewStock){
-    stockAdd(newStock,newColor,newBrand,newPrice,objArraySizes,res);
-  }
+    var newStock = new StockDB();
+    if (addNewStock) {
+        stockAdd(newStock, newColor, newBrand, newPrice, objArraySizes, res);
+    }
 })
 
 app.get('/api/shoes/brand/:brandname', function(req, res) {
-    var brandSearch = req.params.brandname
+    var brandSearch = req.params.brandname;
     var query = {
-      brand: capitalise(brandSearch)
+        brand: capitalise(brandSearch)
     }
-    searchAll(StockDB,res,query)
+    searchAll(StockDB, res, query)
 })
+
+app.get('/api/shoes/brand/:brandname/size/:size', function(req, res) {
+    var brandSearch = req.params.brandname;
+    var sizeSearch = Number(req.params.size);
+    var query = {
+        'brand': capitalise(brandSearch),
+        'sizes': {
+            $elemMatch: {
+                size: sizeSearch,
+                amount: {
+                    $gt: 0
+                }
+            }
+        }
+    }
+    console.log(query)
+    searchAll(StockDB, res, query)
+})
+
 
 app.listen(port, function() {
     console.log("App listening on port")
