@@ -65,29 +65,42 @@ app.get('/api/shoes', function(req, res) {
 //     // if (chosenShoes.constructor!==Array){
 //     //   chosenShoes = [chosenShoes]
 //     // }
-//     var query = {
-//         'brand': capitalise(brandSearch),
-//         'sizes': {
-//             $elemMatch: {
-//                 size: chosenSize,
-//                 amount: {
-//                     $gt: 0
-//                 }
-//             }
-//         }
-//     }
 //     if (orderStock) {
-//         console.log(chosenShoe + "HEYY" + chosenSize);
 //         StockDB.findOneAndUpdate({
-//           "_id": chosenShoe;
-//         },
-//       )
+//             '_id': chosenShoe,
+//             "sizes.size": chosenSize
+//         }, {
+//             $inc: {
+//                 "sizes.$.amount": -1
+//             }
+//         }, {
+//             new: true
+//         }, function(err, saved) {
+//             if (err) {
+//                 console.log(err)
+//             } else if (saved) {
+//                 console.log(saved);
+//                 res.redirect('/')
+//             }
+//         })
 //
 //     }
 //
 // })
 
 app.post('/api/shoes', function(req, res) {
+    var orderStock = req.body.orderStock;
+    var chosenShoe = req.body.chosenShoes;
+    var sizes = req.body.sizes;
+    var chosenSize;
+    for (var i = 0; i < sizes.length; i++) {
+        if (sizes[i] !== 'none') {
+            chosenSize = sizes[i]
+        }
+    }
+
+
+
     var addNewStock = req.body.addNewStock;
     var newBrand = capitalise(req.body.newBrand);
     var newColor = capitalise(req.body.newColor);
@@ -106,7 +119,61 @@ app.post('/api/shoes', function(req, res) {
     var newStock = new StockDB();
     if (addNewStock) {
         stockAdd(newStock, newColor, newBrand, newPrice, objArraySizes, res);
-    }
+    } else
+    if (orderStock) {
+        // }, {
+        //     for (let i = 0; i < sizes.length; i++) {
+        //         if (sizes[i].size == chosenSize) {
+        //             $inc: {
+        //                 sizes[i].amount: -1
+        //             }
+        //         }
+        //     }
+        // }).exec(function(err, saved) {
+        //     if (err) {
+        //         console.log(err)
+        //     } else {
+        //         console.log(saved)
+        //     }
+        StockDB.findById(chosenShoe,
+         function(err, shoeFound) {
+            if (err) {
+                console.log(err)
+            } else if (shoeFound) {
+                for (var i=0;i<shoeFound.sizes.length;i++){
+                  if (shoeFound.sizes[i].size == chosenSize){
+                    console.log('hi')
+                    shoeFound.sizes[i].amount -= 1
+                  }
+                }
+                shoeFound.save(function(err,updatedShoe){
+                  if (err){
+                    console.log(err)
+                  }else if (updatedShoe){
+                    console.log(updatedShoe)
+                    res.redirect('/')
+                  }
+                  console.log("whatsupPPPPPP")
+                })
+              }
+        // shoe.update({
+        //   'sizes.size' : chosenSize
+        // }, {
+        //   $inc: {
+        //     "sizes.$.amount": -1
+        //         }
+        // },{
+        //   safe:true,
+        //   upsert:true
+        // }, function(err,done){
+        //   if (err){
+        //     console.log(err)
+        //   } else if(done){
+        //     console.log('shouldBeDone')
+        //   }
+        // })
+      })
+                }
 })
 
 app.get('/api/shoes/brand/:brandname', function(req, res) {
