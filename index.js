@@ -146,6 +146,11 @@ app.post('/api/shoes', function(req, res) {
                     shoeFound.sizes[i].amount -= 1
                   }
                 }
+
+                console.log(shoeFound)
+
+
+
                 shoeFound.save(function(err,updatedShoe){
                   if (err){
                     console.log(err)
