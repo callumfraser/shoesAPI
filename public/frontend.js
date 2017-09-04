@@ -107,7 +107,7 @@ addStockShow.addEventListener('click', function() {
 
 brandSearch.addEventListener('mouseenter', function(){
   if (check==true){
-  loadAjax('GET', 'https://shoes--api.herokuapp.com/distinctbrands', null, cb3);
+  loadAjax('GET', 'https://shoes--api.herokuapp.com/api/shoes/distinctbrands', null, cb3);
   check = false;
 }
 })
