@@ -117,9 +117,15 @@ showCatalogue.addEventListener('click', function() {
 })
 
 filterButton.addEventListener('click', function() {
+    var filterURL;
     var brandSearch = document.getElementById("brandSearch").value;
     var sizeSearch = document.getElementById("sizeSearch").value;
-    var filterURL = 'https://shoes--api.herokuapp.com/api/shoes/brand/' + brandSearch + '/size/' + sizeSearch;
+    console.log(sizeSearch);
+    if (sizeSearch!=="null"){
+    filterURL = 'https://shoes--api.herokuapp.com/api/shoes/brand/' + brandSearch + '/size/' + sizeSearch;
+  } else {
+    filterURL = 'https://shoes--api.herokuapp.com/api/shoes/brand/' + brandSearch
+  }
 
     loadAjax('GET', filterURL, null, cb1)
 })
