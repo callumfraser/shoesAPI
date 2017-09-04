@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <title>Shhhhoes</title>
+    <script src="handlebars-v40.0.5.js"></script>
+</head>
+
+<body>
+    <div class="headerTabs">
+        <input type="submit" name="shoes" value="Shoes" class="headerButtons">
+        <input type="submit" name="shoes" value="About" class="headerButtons">
+        <input type="submit" name="shoes" value="Contact" class="headerButtons">
+    </div>
+
+    <br><br> <input type="submit" id="showCatalogue" value="Show available catalogue"><br><br>
+    <div class="catalogue hidden"id="catalogueDiv"><br><br>
+        <select class="size all" id="sizeSearch">
+         <option value=1>1</option>
+         <option value=2>2</option>
+         <option value=3>3</option>
+         <option value=4>4</option>
+         <option value=5>5</option>
+         <option value=6>6</option>
+         <option value=7>7</option>
+         <option value=8>8</option>
+         <option value=9>9</option>
+         <option value=10>10</option>
+         <option value=11>11</option>
+         <option value=12>12</option>
+         <option value=13>13</option>
+         <option selected disabled hidden value=null>Size</option>
+       </select> <br><br>
+       <select class="brandName all" id="brandSearch">
+         <script id="brandsOptions" type="text/x-handlebars-template">
+           {{#each brandOptions}}
+         <option value="{{this}}">{{this}}</option>
+         {{/each}}
+       </script>
+         <option selected disabled hidden value=null>Brand</option>
+       </select><br><br>
+       <input type="submit" value="Filter shoes" id="filter">
+       <br><br>
+       <div id="tableDiv">
+        <script id="stockTable" type="text/x-handlebars-template">
+            <table class="stockTable">
+                <tr>
+                    <th>Brand</th>
+                    <th>Color</th>
+                    <th>Price</th>
+                    <th>Size</th>
+                    <th></th>
+                </tr>
+                {{#each shoes}}
+                <tr>
+                  <td>{{brand}}</td>
+                  <td>{{color}}</td>
+                  <td>R{{price}}</td>
+                  <td>
+                    <select class="" name="sizes">
+                      <option selected value="none" hidden>Select</option>
+                      {{#each sizes}}
+                      <option value="{{size}}"{{sizeCheck this}}>{{size}}</option>
+                      {{/each}}
+                    </select>
+                  </td>
+                  <td>
+                    <input type="checkbox" name="chosenShoe" value="{{_id}}">
+                  </td>
+                </tr>
+                {{/each}}
+            </table>
+          </div>
+        </script>
+        <br><br>
+    </div>
+    <br><br>
+    <input type="submit" class="orderButton" id="orderButton" value="Place my order">
+    <br><br>
+    <br><br>
+    <div class="visible">
+
+      <input type="submit" id="showStockAdd" value="Add new stock"><br><br><br>
+    </div>
+
+    <div class="newStockDiv hidden" id="addStockDiv">
+        Add new stock:<br>
+        <input type="text" id="newBrand" placeholder="Brand name">
+        <input type="text" id="newColor" placeholder="Color">
+        <input type="text" id="newPrice" placeholder="Price">
+        <input type="text" id="newSizes" placeholder="Sizes Available"><br><br>
+        <input type="button" id="addNewStock" value="Add stock"><br><br>
+    </div>
+</body>
+
+<script src="frontend.js" charset="utf-8"></script>
+
+</html>
