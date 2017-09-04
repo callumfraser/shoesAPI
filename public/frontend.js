@@ -141,6 +141,10 @@ stockAddButton.addEventListener('click', function(){
   }
 
   console.log(newStock123);
+  newBrand.value = "";
+  newPrice.value = "";
+  newColor.value = "";
+  newSizes.value = "";
 
   loadAjaxPost('POST', 'https://shoes--api.herokuapp.com/api/shoes', JSON.stringify(newStock123), cb2)
 })
