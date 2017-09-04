@@ -40,7 +40,7 @@ var cb1 = function(shoes1) {
 }
 
 var cb2 = function(){
-  loadAjax('GET', 'http://localhost:3005/api/shoes/', null, cb1);
+  loadAjax('GET', 'https://shoes--api.herokuapp.com/api/shoes/', null, cb1);
 }
 
 var cb3 = function(brands){
@@ -107,19 +107,19 @@ addStockShow.addEventListener('click', function() {
 
 brandSearch.addEventListener('mouseenter', function(){
   if (check==true){
-  loadAjax('GET', 'http://localhost:3005/api/shoes/distinctbrands', null, cb3);
+  loadAjax('GET', 'https://shoes--api.herokuapp.com/distinctbrands', null, cb3);
   check = false;
 }
 })
 
 showCatalogue.addEventListener('click', function() {
-  loadAjax('GET', 'http://localhost:3005/api/shoes/', null, cb1);
+  loadAjax('GET', 'https://shoes--api.herokuapp.com/api/shoes/', null, cb1);
 })
 
 filterButton.addEventListener('click', function() {
     var brandSearch = document.getElementById("brandSearch").value;
     var sizeSearch = document.getElementById("sizeSearch").value;
-    var filterURL = 'http://localhost:3005/api/shoes/brand/' + brandSearch + '/size/' + sizeSearch;
+    var filterURL = 'https://shoes--api.herokuapp.com/api/shoes/brand/' + brandSearch + '/size/' + sizeSearch;
 
     loadAjax('GET', filterURL, null, cb1)
 })
@@ -142,7 +142,7 @@ stockAddButton.addEventListener('click', function(){
 
   console.log(newStock123);
 
-  loadAjaxPost('POST', 'http://localhost:3005/api/shoes', JSON.stringify(newStock123), cb2)
+  loadAjaxPost('POST', 'https://shoes--api.herokuapp.com/api/shoes', JSON.stringify(newStock123), cb2)
 })
 
 orderButton.addEventListener('click', function() {
@@ -166,6 +166,6 @@ orderButton.addEventListener('click', function() {
 
 
 
-    var soldURL = 'http://localhost:3005/api/shoes/sold/' + chosenShoe + '/' + chosenSize;
+    var soldURL = 'https://shoes--api.herokuapp.com/api/shoes/sold/' + chosenShoe + '/' + chosenSize;
     loadAjax('POST', soldURL, null, cb2);
 })
