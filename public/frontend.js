@@ -121,10 +121,14 @@ filterButton.addEventListener('click', function() {
     var brandSearch = document.getElementById("brandSearch").value;
     var sizeSearch = document.getElementById("sizeSearch").value;
     console.log(sizeSearch);
-    if (sizeSearch!=="null"){
+    if (sizeSearch!=="null" && brandSearch !=="null"){
     filterURL = 'https://shoes--api.herokuapp.com/api/shoes/brand/' + brandSearch + '/size/' + sizeSearch;
-  } else {
+  } else if (sizeSearch == "null" && brandSearch !== "null"){
     filterURL = 'https://shoes--api.herokuapp.com/api/shoes/brand/' + brandSearch
+  } else if (brandSearch == "null" && sizeSearch !== "null"){
+    filterURL = 'https://shoes--api.herokuapp.com/api/shoes/size/' + sizeSearch
+  } else if (brandSearch == "null" && sizeSearch == "null"){
+    filterURL = 'https://shoes--api.herokuapp.com/api/shoes/'
   }
 
     loadAjax('GET', filterURL, null, cb1)

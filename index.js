@@ -81,6 +81,22 @@ app.get('/api/shoes/brand/:brandname', function(req, res) {
     searchAll(StockDB, res, query)
 })
 
+app.get('/api/shoes/size/:size', function(req,res){
+  var sizeSearch = Number(req.params.size);
+  var query = {
+    'sizes': {
+        $elemMatch: {
+            size: sizeSearch,
+            amount: {
+                $gt: 0
+            }
+        }
+    }
+
+  }
+  searchAll(StockDB,res,query)
+})
+
 app.get('/api/shoes/distinctbrands', function(req,res){
   distinctBrands(StockDB, res);
 })
@@ -99,7 +115,6 @@ app.get('/api/shoes/brand/:brandname/size/:size', function(req, res) {
             }
         }
     }
-    console.log(query)
     searchAll(StockDB, res, query)
 })
 
