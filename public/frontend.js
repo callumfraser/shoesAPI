@@ -139,20 +139,19 @@ stockAddButton.addEventListener('click', function(){
           amount: Number(newSizesArray[p])
       })
   }
-  var newStock123 = {
+  var newStock = {
     brand: capitalise(newBrand.value),
     price: Number(newPrice.value),
     color: capitalise(newColor.value),
     sizes: objArraySizes
   }
 
-  console.log(newStock123);
   newBrand.value = "";
   newPrice.value = "";
   newColor.value = "";
   newSizes.value = "";
 
-  loadAjaxPost('POST', 'https://shoes--api.herokuapp.com/api/shoes', JSON.stringify(newStock123), cb2)
+  loadAjaxPost('POST', 'https://shoes--api.herokuapp.com/api/shoes', JSON.stringify(newStock), setTimeout(cb2, 2000))
 })
 
 orderButton.addEventListener('click', function() {

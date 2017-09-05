@@ -48,10 +48,7 @@ function capitalise(string) {
     return string.substr(0, 1).toUpperCase() + string.substr(1, (string.length - 1)).toLowerCase()
 }
 
-// 
-// app.get('/', function(req, res) {
-//     res.redirect('api/shoes')
-// });
+
 
 app.get('/hello', function(req, res){
   console.log("HI")
