@@ -47,7 +47,8 @@ var cb3 = function(brands){
   var brandTemplateLoaded = brandTemplate({
     brandOptions: brands
   })
-brandSearch.innerHTML = brandTemplateLoaded + "<option selected disabled hidden value=null>Brand</option>";
+brandSearch.innerHTML = brandTemplateLoaded + "<option selected disabled hidden value=null>Brand</option>" +
+ "<option value=null>All brands</option>";
 }
 
 var xhr = new XMLHttpRequest();
@@ -154,6 +155,8 @@ stockAddButton.addEventListener('click', function(){
   newPrice.value = "";
   newColor.value = "";
   newSizes.value = "";
+
+  check = true;
 
   loadAjaxPost('POST', 'https://shoes--api.herokuapp.com/api/shoes', JSON.stringify(newStock), setTimeout(cb2, 2000))
 })
