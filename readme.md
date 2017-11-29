@@ -1,11 +1,11 @@
-# Registration Numbers WebApp
+# Shoes API webapp
 
 ![Image Registration Numbers](http://backend-basics.projectcodex.co/shoes.jpg)
-* Registration number display for valid numbers in Cape Town, Paarl and Bellville.
-* Displays number plates with rounded corners and a yellow background, with a black border.
-* Users are able to add to the plates in the app by typing into a text input field and clicking "Add registration number".
-* No numbers will be added if the field is empty..
-* Newly added registration numbers are displayed at the bottom of the list.
+* Display shoes from database without changing URL on browser.
+* Display shoes in table format.
+* Allow user to add shoes to stock (after clicking "Add new stock"), which will be available in main display table.
+* Add amount of shoes available in each size (different indexes) as input in sizes array (e.g. 4,3,2,4,3 = 4 of size 1, 3 of size 2, 2 of size 3 etc.)
+* Decrease amount available after "Place my order" is clicked, and eventually disable size if no more stock is available.
 
 ## Getting Started
 ### Sections covered while building
@@ -59,7 +59,9 @@ How to [Install MongoDB](https://www.digitalocean.com/community/tutorials/how-to
     "express-flash": "0.0.2",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.3",
-    "mongoose": "^4.10.1"
+    "mongoose": "^4.10.1",
+    "node-jsdom": "^3.1.5",
+    "xmlhttprequest": "^1.8.0"
   }
 ```
 
