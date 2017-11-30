@@ -65,18 +65,18 @@ How to [Install MongoDB](https://www.digitalocean.com/community/tutorials/how-to
   }
 ```
 
-To install all dependencies required for the app to run, on the terminal navigate to the registration_webapp folder, and type  ``` npm install ``` .
+To install all dependencies required for the app to run, on the terminal navigate to the shoes_API_webapp folder, and type  ``` npm install ``` .
 
 ## Running the app locally
 
-* Open terminal and navigate to the registration_webapp directory. Once you are located in the root folder, type:
+* Open terminal and navigate to the shoes_API_webapp directory. Once you are located in the root folder, type:
 
         $ nodemon or
         $ node index.js
 
-* The following message should be displayed  ```App listening on 3005```
+* The following message should be displayed  ```App listening on port 3005```
 
-* Then open a new tab on your browser and type this ``` http://localhost:3001/reg_numbers``` and the app will open.
+* Then open a new tab on your browser and type this ``` http://localhost:3005``` and the app will open.
 
 ## Deployment
 
